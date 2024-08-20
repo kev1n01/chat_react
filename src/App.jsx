@@ -59,7 +59,7 @@ const ChatInterface = () => {
       recognitionInstance.onerror = (event) => {
         console.error('Error de reconocimiento de voz:', event.error);
         if (event.error === 'network') {
-          alert('Error de red. Por favor, verifica tu conexión a internet.');
+          console.error('Error de red. Por favor, verifica tu conexión a internet.');
         }
         setIsListening(false);
       };
@@ -77,7 +77,7 @@ const ChatInterface = () => {
 
   const toggleListening = () => {
     if (!voiceSupported) {
-      alert('Lo siento, el reconocimiento de voz no está soportado en este navegador.');
+      console.error('Lo siento, el reconocimiento de voz no está soportado en este navegador.');
       return;
     }
 
@@ -106,13 +106,12 @@ const ChatInterface = () => {
         {
           headers: {
             'Accept': 'audio/mpeg',
-            'xi-api-key': "sk_4373bebc5507ea255fe61d8cb5b3292312ede63b61134378",
+            'xi-api-key': "sk_d7252f6c47bbdcaae879982e6bd2ad9839ab270d1364dfc7",
             'Content-Type': 'application/json'
           },
           responseType: 'arraybuffer'
         }
       );
-      console.log(response);
 
       const audioBlob = new Blob([response.data], { type: 'audio/mpeg' });
       const audioUrl = URL.createObjectURL(audioBlob);
@@ -121,7 +120,6 @@ const ChatInterface = () => {
       setIsPlaying(true);
     } catch (error) {
       console.error('Error al generar voz:', error);
-      alert('Error al generar voz:', error);
     }
   };
 
