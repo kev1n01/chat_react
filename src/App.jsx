@@ -27,7 +27,6 @@ const ChatInterface = () => {
 
       const botResponse = response.data.results.completion.choices[0].message;
       setMessages(prevMessages => [...prevMessages, botResponse]);
-      setIsLoading(false);
       await generateSpeech(botResponse.content);
     } catch (error) {
       console.error('Error al enviar mensaje:', error);
