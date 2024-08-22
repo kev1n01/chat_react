@@ -5,3 +5,21 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica;
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #000;
+  border-radius: px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

@@ -105,7 +105,7 @@ const ChatInterface = () => {
         {
           headers: {
             'Accept': 'audio/mpeg',
-            'xi-api-key': "sk_d7252f6c47bbdcaae879982e6bd2ad9839ab270d1364dfc7",
+            'xi-api-key': "sk_4373bebc5507ea255fe61d8cb5b3292312ede63b61134378",
             'Content-Type': 'application/json'
           },
           responseType: 'arraybuffer'
