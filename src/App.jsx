@@ -20,19 +20,21 @@ const ChatInterface = () => {
 
     try {
       const response = await axios.post(
-        'https://sciphi-4f8af0ab-4d3b-400f-8a44-23cb05aa79e3-qwpin2swwa-ue.a.run.app/v1/rag',
+        import.meta.env.VITE_SCIPHI_API,
         { query: inputMessage },
         { headers: { 'Content-Type': 'application/json' } }
       );
 
       const botResponse = response.data.results.completion.choices[0].message;
       setMessages(prevMessages => [...prevMessages, botResponse]);
+      let box_messages = document.querySelector('.box-messages');
+      box_messages.scrollTop = box_messages.scrollHeight;
+      setIsLoading(false);
       await generateSpeech(botResponse.content);
+
     } catch (error) {
       console.error('Error al enviar mensaje:', error);
       setMessages(prevMessages => [...prevMessages, { content: 'Lo siento, ha ocurrido un error.', role: 'assistant' }]);
-    } finally {
-      setIsLoading(false);
     }
   }
 
@@ -93,7 +95,7 @@ const ChatInterface = () => {
   const generateSpeech = async (text) => {
     try {
       const response = await axios.post(
-        `https://api.elevenlabs.io/v1/text-to-speech/21m00Tcm4TlvDq8ikWAM`,
+        `https://api.elevenlabs.io/v1/text-to-speech/${import.meta.env.VITE_VOICE_ID}`,
         {
           text: text,
           model_id: 'eleven_multilingual_v2',
@@ -105,7 +107,7 @@ const ChatInterface = () => {
         {
           headers: {
             'Accept': 'audio/mpeg',
-            'xi-api-key': "sk_4373bebc5507ea255fe61d8cb5b3292312ede63b61134378",
+            'xi-api-key': import.meta.env.VITE_ELEVENLABS_API_KEY,
             'Content-Type': 'application/json'
           },
           responseType: 'arraybuffer'
@@ -143,7 +145,7 @@ const ChatInterface = () => {
         {/* Topbar */}
 
         {/* Mensajes del chat */}
-        <div className="flex-1 overflow-y-auto p-4 px-2 space-y-4 md:px-[30rem] lg:px-[22rem]">
+        <div className="flex-1 overflow-y-auto p-4 px-2 space-y-4 md:px-[30rem] lg:px-[22rem] box-messages">
           {messages.map((message, index) => (
             <div key={index} className={`flex w-full`}>
               <div className={`rounded-lg p-3 w-auto ${message.role === 'assistant' ? 'bg-[#333333] text-white' : 'bg-gray-900 text-white'}`}>
