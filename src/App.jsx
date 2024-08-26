@@ -34,8 +34,8 @@ const ChatInterface = () => {
 
     } catch (error) {
       console.error('Error al enviar mensaje:', error);
-      setMessages(prevMessages => [...prevMessages, { content: 'Lo siento, ha ocurrido un error.', role: 'assistant' }]);
-    }
+      setMessages(prevMessages => [...prevMessages, { content: 'Lo siento ocurrió un error, intentalo de nuevo.', role: 'assistant' }]);
+    } 
   }
 
   const [isListening, setIsListening] = useState(false);
@@ -149,7 +149,7 @@ const ChatInterface = () => {
           {messages.map((message, index) => (
             <div key={index} className={`flex w-full`}>
               <div className={`rounded-lg p-3 w-auto ${message.role === 'assistant' ? 'bg-[#333333] text-white' : 'bg-gray-900 text-white'}`}>
-                <p><ReactMarkdown>{message.content}</ReactMarkdown></p>
+                <ReactMarkdown>{message.content}</ReactMarkdown>
                 <div className="flex justify-end mt-2 space-x-2">
                   {message.role === 'assistant' && (
                     <button
